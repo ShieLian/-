@@ -1,0 +1,31 @@
+{
+"update_url":"http://github.com/ShieLian/",
+	"name": "自招名单优化插件",
+	"version": "0.0.0",
+	"icons": { "128": "logo.png" },
+	"description": "自招名单优化插件",
+    "homepage_url": "http://gaokao.chsi.com.cn/zsgs/zzzsmd.jsp",
+    "browser_action": {
+        "default_icon": "logo.png",
+        "default_title": "自招名单优化"
+    },
+	"content_scripts": [
+		{
+            "matches": ["http://gaokao.chsi.com.cn/*",
+            			"https://gaokao.chsi.com.cn/*"
+                     ],
+            "js":  ["content_script/jquery-1.12.0.min.js",
+            		"content_script/main.js"],
+            "run_at": "document_start",
+            "all_frames": true
+		}
+	],
+    "permissions": [
+        "http://gaokao.chsi.com.cn/*",
+        "https://gaokao.chsi.com.cn/*"
+    ],
+    "manifest_version": 2,
+    "web_accessible_resources": [
+        "manifest.json"
+    ]
+}
