@@ -1,4 +1,4 @@
-function inBaseUrl(url)
+﻿function inBaseUrl(url)
 {
 	if (document.URL.toLowerCase().indexOf(url.toLowerCase()) < 0)
 		return false;
@@ -83,10 +83,8 @@ function fetch(url)
 	for(var i=0;i<num;i+=30)
 	{
 		jQuery.get(url+"&start="+i,function f(data){$(data).ready(parse(data,par,list));});
-		for(var t=0;t<2000000;++t)
-		{
-			t+137;
-		}
+		var begin=(new Date()).getTime();
+		while((new Date()).getTime()-begin<50){}
 	}
 	infetch=false;
 	localStorage[par]=true;
