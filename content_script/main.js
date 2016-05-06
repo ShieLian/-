@@ -8,25 +8,26 @@ function inBaseUrl(url)
 
 function override_verifyList()
 {
-	jQuery("tr").remove('[class!="bg_color02"]');
-	jQuery("form#person").remove();
+	$("tr").remove('[class!="bg_color02"]');
+	$("form#person").remove();
 	///html/body/div[4]/div[1]/text()[3]
-	var recordline=jQuery("body").children("div.box").children("div:first").text();
+	//var recordline=$("body").children("div.box").children("div:first").text();
+	var recordline=$('div.pageDiv').text();
 	var reg=new RegExp("共[0-9\\s]+条记录");
 	var recordline=reg.exec(recordline);
 	num=new Number(new RegExp("[0-9]+").exec(recordline));
-	jQuery("body").children("div.box").children("div:first").html(recordline);
-	// jQuery("#YKTabCon2_10").hide();
-	jQuery("h3").after(getSearchForm());
-	// jQuery("body").append('<script>'+search.toString()+'</script>');
-	jQuery("#search_button").click(search);
+	$("body").children("div.box").children("div:first").html(recordline);
+	// $("#YKTabCon2_10").hide();
+	$("h3").after(getSearchForm());
+	// $("body").append('<script>'+search.toString()+'</script>');
+	$("#search_button").click(search);
 }
 
 var infetch=false;
 var num=0;
 function search(num)
 {
-	var name=jQuery("#name").val(),school=jQuery("#school").val(),locate=jQuery("#locate").val();
+	var name=$("#name").val(),school=$("#school").val(),locate=$("#locate").val();
 	localStorage["name"]=name;
 	localStorage["school"]=school;
 	if(locate)
@@ -46,7 +47,7 @@ function search(num)
 
 function display(name,school,locate)
 {
-	jQuery("#YKTabCon2_10 > tbody > tr[class!=bg_color02]").remove();
+	$("#YKTabCon2_10 > tbody > tr[class!=bg_color02]").remove();
 	var url=document.URL.toLowerCase();
 	var par=url.substring(url.indexOf('?'),url.length);
 	var string=localStorage[par+"_data"];
@@ -71,7 +72,7 @@ function display(name,school,locate)
 function append(record)
 {
 	tr="<tr><td>"+record[0]+"</td><td>"+record[1]+"</td><td>"+record[2]+"</td><td>"+record[3]+"</td></tr>";
-	jQuery("table#YKTabCon2_10").append(tr);
+	$("table#YKTabCon2_10").append(tr);
 }
 
 function fetch(url)
@@ -81,25 +82,26 @@ function fetch(url)
 	var par=url.substring(url.indexOf('?'),url.length);
 	for(var i=0;i<num;i+=30)
 	{
-		jQuery.get(url+"&start="+i,function f(data){jQuery(data).ready(parse(data,par,list));});
-		for(var t=0;t<1000000;++t)
+		jQuery.get(url+"&start="+i,function f(data){$(data).ready(parse(data,par,list));});
+		for(var t=0;t<2000000;++t)
 		{
 			t+137;
 		}
 	}
-	localStorage[par]=true;
 	infetch=false;
+	localStorage[par]=true;
 }
 var parser=new DOMParser();
 function parse(data,par,list)
 {
+	//alert('Parsing');
 	var doc=parser.parseFromString(data,"text/xml");
-	var trs=jQuery(data).find("tr[class!=bg_color02]");
+	var trs=$(data).find("tr[class!=bg_color02]");
 	var entry;
 	for(var i=0;i<trs.length;++i)
 	{
 		var tr=trs[i];
-		var tds=jQuery(tr).children("td");
+		var tds=$(tr).children("td");
 		entry=new Array('"'+tds[0].innerHTML+'"','"'+tds[1].innerHTML+'"','"'+tds[2].innerHTML+'"','"'+tds[3].innerHTML+'"').toString();
 		entry="["+entry+"]";
 		list.push(entry);
@@ -128,9 +130,9 @@ function getSearchForm()
 
 function main()
 {
+	console.log("Log");
 	if(inBaseUrl("gaokao.chsi.com.cn/zzbm/mdgs/detail.action"))
 		override_verifyList();
 }
 
-jQuery.noConflict();
-jQuery(document).ready(main);
+$(document).ready(main);
