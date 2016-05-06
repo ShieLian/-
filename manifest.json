@@ -1,7 +1,7 @@
-{
+﻿{
 "update_url":"http://github.com/ShieLian/version.xml",
 	"name": "自招名单优化插件",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"icons": { "128": "logo.png" },
 	"description": "自招名单优化插件",
     "homepage_url": "http://gaokao.chsi.com.cn/zsgs/zzzsmd.jsp",
