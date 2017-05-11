@@ -36,9 +36,9 @@ function search(num)
 	var par=url.substring(url.indexOf('?'),url.length);
 	if(!Boolean(localStorage[par]))
 	{
-		if(infetch) 
+		if(infetch)
 			alert("正在抓取，请稍候");
-		else 
+		else
 			fetch(url);
 	}
 	else display(name,school,locate);
@@ -66,7 +66,7 @@ function display(name,school,locate)
 				continue;
 		append(record);
 	}
-	
+
 }
 
 function append(record)
@@ -84,7 +84,7 @@ function fetch(url)
 	{
 		jQuery.get(url+"&start="+i,function f(data){$(data).ready(parse(data,par,list));});
 		var begin=(new Date()).getTime();
-		while((new Date()).getTime()-begin<50){}
+		while((new Date()).getTime()-begin<500){}
 	}
 	infetch=false;
 	localStorage[par]=true;
